@@ -24,7 +24,7 @@ module HealthDataStandards
         end
 
         group = {"$group" => {"_id" => "$value.medical_record_id", "rational" => {"$push"=> "$value.rationale"}}}
-        aggregate = self.mongo_session.command(:aggregate => 'patient_cache', :pipeline => [{"$match" =>match},group], :allowDiskUse=> true, :use_cursor =>true)
+        aggregate = self.mongo_session.command(:aggregate => 'patient_cache', :pipeline => [{"$match" =>match},group], allowDiskUse: true, :use_cursor =>true)
 
         merged = {}
         aggregate["result"].each do |agg|
